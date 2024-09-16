@@ -17,10 +17,16 @@ struct ContentView: View {
         NavigationStack {
             Group {
                 if isGrid {
-                    GridView(astronauts: astronauts, missions: missions)
+                    GridView(missions: missions)
                 } else {
-                    ListView(astronauts: astronauts, missions: missions)
+                    ListView(missions: missions)
                 }
+            }
+            .navigationDestination(for: Mission.self) { mission in
+                MissionView(mission: mission, astronaut: astronauts)
+            }
+            .navigationDestination(for: Astronaut.self) { astronaut in
+                AstronautView(astronaut: astronaut)
             }
                 .navigationTitle("Moonshot")
                 .preferredColorScheme(.dark)

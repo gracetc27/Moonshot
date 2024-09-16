@@ -8,15 +8,12 @@
 import SwiftUI
 
 struct ListView: View {
-    let astronauts: [String: Astronaut]
     let missions: [Mission]
-    
+
     var body: some View {
         List {
             ForEach(missions) { mission in
-                NavigationLink {
-                    MissionView(mission: mission, astronaut: astronauts)
-                } label: {
+                NavigationLink(value: mission) {
                     GridItemView(mission: mission)
                 }
             }
@@ -28,8 +25,7 @@ struct ListView: View {
 
 #Preview {
     let missions: [Mission] = Bundle.main.decode("missions.json")
-    let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
-    
-    ListView(astronauts: astronauts, missions: missions)
+
+    ListView(missions: missions)
         .preferredColorScheme(.dark)
 }
